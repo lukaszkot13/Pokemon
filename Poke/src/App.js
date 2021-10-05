@@ -14,15 +14,17 @@ function App() {
     <div>
       <Router>
         <Navi />
-
-<ListaPokemonow/>
+        <Route path="/" exact>
+        <ListaPokemonow/>
+        </Route>
         <Route path="/ulubione">
           <Ulubione />
         </Route>
         <Route path="/arena">
           <Arena />
-        </Route>
+        </Route>    
       </Router>
+     
     </div>
   );
 }

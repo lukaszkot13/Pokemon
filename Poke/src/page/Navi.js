@@ -4,10 +4,21 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useHistory } from "react-router-dom";
+import {  Link } from "react-router-dom";
+import { makeStyles} from "@material-ui/core";
+import { white } from "@mui/material/colors";
+
+
+const useStyles = makeStyles({
+  Link: {
+    
+    textDecoration: "none",
+  },
+});
 
 function Navi() {
-  const history = useHistory();
+  const classes = useStyles();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -15,12 +26,14 @@ function Navi() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Pokedex
           </Typography>
-
-          <Button color="inherit" onClick={() => history.push("/ulubiole")}>
-            Ulubione
-          </Button>
-
+          <Link className={classes.Link} to="/ulubione">
+          <Button color="inherit">Ulubione</Button>
+          </Link>
+          
+          <Link  className={classes.Link} to="/arena">
           <Button color="inherit">Arena</Button>
+          </Link>
+          
         </Toolbar>
       </AppBar>
     </Box>

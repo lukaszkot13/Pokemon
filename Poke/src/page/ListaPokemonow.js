@@ -42,22 +42,30 @@ const useStyles = makeStyles({
     'min-width': '50%',
     'margin-top': '1rem',
   },
+  input:{
+      'box-sizing': 'border-box',
+      'font-size': '1rem',
+      'padding': '1rem',
+      'display': 'block',
+      'margin': '2rem auto'
+    
+  }
 });
 function ListaPokemonow() {
 const classes = useStyles()
 
   const [allPokemon, setAllPokemon] = useState([])
   const [loadMore, setLoadMore] = useState(
-    `https://pokeapi.co/api/v2/pokemon?limit=15`
+    `https://pokeapi.co/api/v2/pokemon?limit=150`
   );
 
   const getAllPokemon = async () => {
     const res = await fetch(loadMore)
     const data = await res.json()
-
+    
     setLoadMore(data.next)
    
-
+    console.log(data)
     function createPokemonObject(results) {
       results.forEach(async (pokemon) => {
         const res = await fetch(
@@ -65,9 +73,12 @@ const classes = useStyles()
         const data = await res.json()
         setAllPokemon((currentlist) => [...currentlist, data])
         await allPokemon.sort((a,b)=> a.id - b.id)
+
+        
       });
     }
     createPokemonObject(data.results)
+    await console.log(allPokemon)
     
   }
 
@@ -77,23 +88,27 @@ const classes = useStyles()
 
   
   return (<div>
-    <input type='text' placeholder='Wyszukaj Pokemona'/>
+    <input className={classes.input} type='text' placeholder='Wyszukaj Pokemona'/>
     <div className={classes.pageContainer}>
       
       <div className={classes.pokemonContainer}>
         <div className={classes.allContainer}>
-        {allPokemon.map( (pokemonStats, index) => 
+        {allPokemon.filter((item,index) => index <15).map( (pokemonStats, index) => 
             <PokemonThumb
               key={index}
               id={pokemonStats.id}
               image={pokemonStats.sprites.other.dream_world.front_default}
               name={pokemonStats.name}
               type={pokemonStats.types[0].type.name}
+              height={pokemonStats.height}
+              weight={pokemonStats.weight}
+              ability={pokemonStats.abilities[0].ability.name}
+              baseExperience={pokemonStats.base_experience}
             />)}
         </div>
         <button className={classes.loadMore} onClick={()=> getAllPokemon()}>Load More</button>
-        {/* <button className={classes.buttonPrev}>Poprzednia strona</button>
-        <button className={classes.buttonNext}>Następna strona</button> */}
+        <button className={classes.buttonPrev}>Poprzednia strona</button>
+        <button className={classes.buttonNext}>Następna strona</button>
       </div>
     </div>
     </div>

@@ -1,5 +1,5 @@
 function Ulubione() {
-  return <div>Ulubione</div>;
+  return <div><button>powrót do głównej</button></div>;
 }
 
 export default Ulubione;
