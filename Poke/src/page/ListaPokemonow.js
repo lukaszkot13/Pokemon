@@ -1,7 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom"
 
 import PokemonThumb from "../components/PokemonThub";
+
 
 const useStyles = makeStyles({
   pageContainer: {
@@ -53,6 +55,7 @@ const useStyles = makeStyles({
 });
 function ListaPokemonow() {
 const classes = useStyles()
+let history = useHistory();
 
   const [allPokemon, setAllPokemon] = useState([])
   const [loadMore, setLoadMore] = useState(
@@ -88,12 +91,14 @@ const classes = useStyles()
 
   
   return (<div>
-    <input className={classes.input} type='text' placeholder='Wyszukaj Pokemona'/>
+    <input className={classes.input} type='text' placeholder='Wyszukaj Pokemona'  onChange={(e) => {
+          setAllPokemon(e.target.value);
+        }}/>
     <div className={classes.pageContainer}>
       
       <div className={classes.pokemonContainer}>
         <div className={classes.allContainer}>
-        {allPokemon.filter((item,index) => index <15).map( (pokemonStats, index) => 
+        {allPokemon.filter((item, index) => index <15).map( (pokemonStats, index) => 
             <PokemonThumb
               key={index}
               id={pokemonStats.id}
@@ -105,6 +110,7 @@ const classes = useStyles()
               ability={pokemonStats.abilities[0].ability.name}
               baseExperience={pokemonStats.base_experience}
             />)}
+            onClick={() => history.push(`/${setAllPokemon}`)}
         </div>
         <button className={classes.loadMore} onClick={()=> getAllPokemon()}>Load More</button>
         <button className={classes.buttonPrev}>Poprzednia strona</button>

@@ -6,12 +6,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {  Link } from "react-router-dom";
 import { makeStyles} from "@material-ui/core";
-import { white } from "@mui/material/colors";
+
 
 
 const useStyles = makeStyles({
   Link: {
-    
+    color: 'inherit',
     textDecoration: "none",
   },
 });

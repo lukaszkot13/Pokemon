@@ -22,7 +22,8 @@ function App() {
         </Route>
         <Route path="/arena">
           <Arena />
-        </Route>    
+        </Route>  
+        
       </Router>
      
     </div>

@@ -40,9 +40,7 @@ container: {
 
 const PokemonThumb = ({id, image, name, type, height, weight, ability,baseExperience }) => {
     const classes = useStyles()
-    const style = type + " thumb-container";
     return (
-        <div className= {style}>
         <div className={classes.container}>
             
             <div className="number"><small>#0{id}</small></div>
@@ -71,8 +69,7 @@ const PokemonThumb = ({id, image, name, type, height, weight, ability,baseExperi
                 </div>
                 <small>Type: {type}</small>
             </div>
-            </div>
-        </div>
+            </div>      
     )
 }
 
