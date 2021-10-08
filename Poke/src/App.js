@@ -7,6 +7,7 @@ import Ulubione from "./page/Ulubione";
 import Arena from "./page/Arena";
 
 import ListaPokemonow from "./page/ListaPokemonow";
+import PokeList from "./page/PokeList";
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
       <Router>
         <Navi />
         <Route path="/" exact>
-        <ListaPokemonow/>
+        <PokeList/>
+
         </Route>
         <Route path="/ulubione">
           <Ulubione />
