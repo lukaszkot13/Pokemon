@@ -6,9 +6,7 @@ import Navi from "./page/Navi";
 import Ulubione from "./page/Ulubione";
 import Arena from "./page/Arena";
 
-import ListaPokemonow from "./page/ListaPokemonow";
 import PokeList from "./page/PokeList";
-
 
 function App() {
   return (
@@ -16,18 +14,15 @@ function App() {
       <Router>
         <Navi />
         <Route path="/" exact>
-        <PokeList/>
-
+          <PokeList />
         </Route>
         <Route path="/ulubione">
           <Ulubione />
         </Route>
         <Route path="/arena">
           <Arena />
-        </Route>  
-        
+        </Route>
       </Router>
-     
     </div>
   );
 }
