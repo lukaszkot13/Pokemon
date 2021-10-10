@@ -48,26 +48,21 @@ const PokemonThumb = ({
   baseExperience,
 }) => {
   const classes = useStyles();
-  const [poke, setPoke] = useState(null);
+  const [poke, setPoke] = useState([]);
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
-      console.log("danePokemona", response);
       setPoke(response.data);
       // setPoke((currentlist) => [...currentlist, response.data]);
     });
   }, []);
-
+  console.log("poke", poke);
   return (
     <div className={classes.container}>
       <div className="number">
         <small>#0{id}</small>
       </div>
-      <img
-        className={classes.image}
-        src={poke.sprites.other.dream_world.front_default}
-        alt={name}
-      />
+      <img className={classes.image} src={image} alt={name} />
       <div className={classes.wrapper}>
         <h3>{poke.name}</h3>
         <div className={classes.umiejetnosci}>
@@ -90,7 +85,7 @@ const PokemonThumb = ({
             <h4>Weight</h4>
           </div>
         </div>
-        <small>Type: {poke.types[0].type.name}</small>
+        <small>Type: {poke.type}</small>
       </div>
     </div>
   );

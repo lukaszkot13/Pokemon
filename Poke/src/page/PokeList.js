@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
-import Pokemon from "../components/Pokemon";
 import PokemonThumb from "../components/PokemonThub";
 
 const useStyles = makeStyles({
@@ -57,8 +56,9 @@ function PokeList() {
         console.log("dane", response.data);
         setPokemon(response.data);
       });
-  }, [pageValue]);
+  }, [pageValue, limitValue]);
 
+  console.log("pokemon", pokemon);
   return (
     <div>
       <input
@@ -70,7 +70,7 @@ function PokeList() {
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>
             {pokemon?.results
-              ?.filter((item, index) => index < 15)
+              ?.filter((item, index) => index < 2)
               .map(({ url }, index) => (
                 <PokemonThumb
                   url={url}
