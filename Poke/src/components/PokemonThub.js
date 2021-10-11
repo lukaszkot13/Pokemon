@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 
@@ -49,6 +50,11 @@ const PokemonThumb = ({
 }) => {
   const classes = useStyles();
   const [poke, setPoke] = useState([]);
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/${poke.name}`);
+  };
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -57,12 +63,17 @@ const PokemonThumb = ({
     });
   }, []);
   console.log("poke", poke);
+
   return (
-    <div className={classes.container}>
+    <div className={classes.container} onClick={handleClick} data-name={name}>
       <div className="number">
-        <small>#0{id}</small>
+        <small>#0{poke?.id}</small>
       </div>
-      <img className={classes.image} src={image} alt={name} />
+      <img
+        className={classes.image}
+        src={poke?.sprites?.other.dream_world.front_default}
+        alt={name}
+      />
       <div className={classes.wrapper}>
         <h3>{poke.name}</h3>
         <div className={classes.umiejetnosci}>
@@ -77,7 +88,7 @@ const PokemonThumb = ({
         </div>
         <div className={classes.umiejetnosci}>
           <div className={classes.ustawienie}>
-            <h5>{poke.abilities[0].ability.name}</h5>
+            <h5>{poke?.abilities?.[0].ability.name}</h5>
             <h4>Ability</h4>
           </div>
           <div className={classes.ustawienie}>
@@ -85,7 +96,7 @@ const PokemonThumb = ({
             <h4>Weight</h4>
           </div>
         </div>
-        <small>Type: {poke.type}</small>
+        <small>Type: {poke?.types?.[0].type.name}</small>
       </div>
     </div>
   );

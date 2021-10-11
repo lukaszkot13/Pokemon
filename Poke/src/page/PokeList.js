@@ -70,20 +70,9 @@ function PokeList() {
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>
             {pokemon?.results
-              ?.filter((item, index) => index < 2)
+              ?.filter((item, index) => index < 20)
               .map(({ url }, index) => (
-                <PokemonThumb
-                  url={url}
-                  // key={index}
-                  // id={id}
-                  // image={pokemonStats.sprites.other.dream_world.front_default}
-                  //   name={pokemonStats.name}
-                  // type={pokemonStats.types[0].type.name}
-                  // height={pokemonStats.height}
-                  //   weight={pokemonStats.weight}
-                  // ability={pokemonStats.abilities[0].ability.name}
-                  // baseExperience={pokemonStats.base_experience}
-                />
+                <PokemonThumb url={url} />
               ))}
           </div>
           <div className={classes.button}>
