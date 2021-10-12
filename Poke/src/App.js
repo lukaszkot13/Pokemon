@@ -7,16 +7,21 @@ import Ulubione from "./page/Ulubione";
 import Arena from "./page/Arena";
 
 import PokeList from "./page/PokeList";
+import PokemonThumb from "./components/PokemonThub";
 
 function App() {
-  console.log();
+  const [pokemon, setPokemon] = useState(null);
+
   return (
     <div>
       <Router>
         <Navi />
         <Route path="/" exact>
-          <PokeList />
+          <PokeList setPokemon={setPokemon} />
         </Route>
+        {pokemon?.map((item) => (
+          <Router path={`/${item.name}`}>{PokemonThumb}</Router>
+        ))}
         <Route path="/ulubione">
           <Ulubione />
         </Route>

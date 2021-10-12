@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 import PokemonThumb from "../components/PokemonThub";
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
-    "border-radius": "2px",
+    "border-radius": "5px",
     color: "#444",
     padding: "0.5rem 1.5rem",
     "min-width": "50%",
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
 });
 
 function PokeList() {
+  const history = useHistory();
   const classes = useStyles();
   const [pokemon, setPokemon] = useState();
   const [limitValue, setLimitValue] = useState(15);
@@ -68,11 +70,15 @@ function PokeList() {
     setPageValue(pageValue - 15);
     setLimitValue(15);
   };
+
   const nextPage = () => {
-    if (pageValue === 0) {
-      setPageValue(pageValue + 15);
+    if (pageValue === 150) {
+      alert("Jesteś na ostatnoej stronie");
+      return;
+    } else if (pageValue === 135) {
+      setLimitValue(1);
     }
-    setLimitValue(15);
+    setPageValue(pageValue + 15);
   };
   return (
     <div>
@@ -87,7 +93,11 @@ function PokeList() {
             {pokemon?.results
               ?.filter((item, index) => index < 15)
               .map(({ url }, index) => (
-                <PokemonThumb url={url} key={index} />
+                <PokemonThumb
+                  url={url}
+                  key={index}
+                  onClick={() => history.push(`/${pokemon.name}`)}
+                />
               ))}
           </div>
           <div className={classes.button}>
