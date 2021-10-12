@@ -56,9 +56,24 @@ function PokeList() {
         console.log("dane", response.data);
         setPokemon(response.data);
       });
-  }, [pageValue, limitValue]);
+  }, [pageValue]);
 
   console.log("pokemon", pokemon);
+
+  const prevPage = () => {
+    if (pageValue === 0) {
+      alert("Jesteś na pierwszej stronie ");
+      return;
+    }
+    setPageValue(pageValue - 15);
+    setLimitValue(15);
+  };
+  const nextPage = () => {
+    if (pageValue === 0) {
+      setPageValue(pageValue + 15);
+    }
+    setLimitValue(15);
+  };
   return (
     <div>
       <input
@@ -70,14 +85,14 @@ function PokeList() {
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>
             {pokemon?.results
-              ?.filter((item, index) => index < 20)
+              ?.filter((item, index) => index < 15)
               .map(({ url }, index) => (
-                <PokemonThumb url={url} />
+                <PokemonThumb url={url} key={index} />
               ))}
           </div>
           <div className={classes.button}>
-            <button>Poprzednia strona</button>
-            <button>Następna strona</button>
+            <button onClick={prevPage}>Poprzednia strona</button>
+            <button onClick={nextPage}>Następna strona</button>
           </div>
         </div>
       </div>

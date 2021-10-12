@@ -65,7 +65,11 @@ const PokemonThumb = ({
   console.log("poke", poke);
 
   return (
-    <div className={classes.container} onClick={handleClick} data-name={name}>
+    <div
+      className={classes.container}
+      onClick={handleClick}
+      data-name={poke.name}
+    >
       <div className="number">
         <small>#0{poke?.id}</small>
       </div>

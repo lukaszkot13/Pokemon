@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navi from "./page/Navi";
@@ -9,6 +9,7 @@ import Arena from "./page/Arena";
 import PokeList from "./page/PokeList";
 
 function App() {
+  console.log();
   return (
     <div>
       <Router>
