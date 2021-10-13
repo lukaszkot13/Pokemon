@@ -20,7 +20,9 @@ function App() {
           <PokeList setPokemon={setPokemon} />
         </Route>
         {pokemon?.map((item) => (
-          <Router path={`/${item.name}`}>{PokemonThumb}</Router>
+          <Route path={`/${item.name}`}>
+            <PokemonThumb />
+          </Route>
         ))}
         <Route path="/ulubione">
           <Ulubione />

@@ -4,15 +4,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {  Link } from "react-router-dom";
-import { makeStyles} from "@material-ui/core";
-
-
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   Link: {
-    color: 'inherit',
+    color: "inherit",
     textDecoration: "none",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
   },
 });
 
@@ -27,13 +28,12 @@ function Navi() {
             Pokedex
           </Typography>
           <Link className={classes.Link} to="/ulubione">
-          <Button color="inherit">Ulubione</Button>
+            <Button color="inherit">Ulubione</Button>
           </Link>
-          
-          <Link  className={classes.Link} to="/arena">
-          <Button color="inherit">Arena</Button>
+
+          <Link className={classes.Link} to="/arena">
+            <Button color="inherit">Arena</Button>
           </Link>
-          
         </Toolbar>
       </AppBar>
     </Box>
