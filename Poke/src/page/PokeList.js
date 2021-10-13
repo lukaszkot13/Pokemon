@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 
 import PokemonThumb from "../components/PokemonThub";
 
@@ -43,8 +42,7 @@ const useStyles = makeStyles({
   },
 });
 
-function PokeList({ setPokemon2, pokemon2 }) {
-  const history = useHistory();
+function PokeList({ setPokemon2 }) {
   const classes = useStyles();
   const [pokemon, setPokemon] = useState();
   const [limitValue, setLimitValue] = useState(15);
@@ -62,7 +60,6 @@ function PokeList({ setPokemon2, pokemon2 }) {
   }, [pageValue]);
 
   console.log("pokemon", pokemon);
-  console.log("pokemon2", pokemon2);
 
   const prevPage = () => {
     if (pageValue === 0) {
@@ -95,11 +92,7 @@ function PokeList({ setPokemon2, pokemon2 }) {
             {pokemon?.results
               ?.filter((item, index) => index < 15)
               .map(({ url }, index) => (
-                <PokemonThumb
-                  url={url}
-                  key={index}
-                  onClick={() => history.push(`/${pokemon.name}`)}
-                />
+                <PokemonThumb url={url} key={index} />
               ))}
           </div>
           <div className={classes.button}>

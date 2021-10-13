@@ -8,6 +8,7 @@ import Arena from "./page/Arena";
 
 import PokeList from "./page/PokeList";
 import PokemonThumb from "./components/PokemonThub";
+import PokemonCard from "./components/PokemonCard";
 
 function App() {
   const [pokemon2, setPokemon2] = useState(null);
@@ -21,7 +22,7 @@ function App() {
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
-            <PokemonThumb />
+            <PokemonCard />
           </Route>
         ))}
         <Route path="/ulubione">
