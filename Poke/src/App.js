@@ -22,7 +22,7 @@ function App() {
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
-            <PokemonCard />
+            <PokemonCard url={item.url} />
           </Route>
         ))}
         <Route path="/ulubione">

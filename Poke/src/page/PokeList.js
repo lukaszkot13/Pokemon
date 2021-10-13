@@ -90,7 +90,7 @@ function PokeList({ setPokemon2 }) {
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>
             {pokemon?.results
-              ?.filter((item, index) => index < 15)
+              ?.filter((_, index) => index < 15)
               .map(({ url }, index) => (
                 <PokemonThumb url={url} key={index} />
               ))}
