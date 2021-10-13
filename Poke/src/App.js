@@ -10,16 +10,16 @@ import PokeList from "./page/PokeList";
 import PokemonThumb from "./components/PokemonThub";
 
 function App() {
-  const [pokemon, setPokemon] = useState(null);
-
+  const [pokemon2, setPokemon2] = useState(null);
+  console.log("pokemon", pokemon2);
   return (
     <div>
       <Router>
         <Navi />
         <Route path="/" exact>
-          <PokeList setPokemon={setPokemon} />
+          <PokeList setPokemon2={setPokemon2} />
         </Route>
-        {pokemon?.map((item) => (
+        {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
             <PokemonThumb />
           </Route>

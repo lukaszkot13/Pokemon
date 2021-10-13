@@ -65,7 +65,7 @@ const PokemonThumb = ({
       // setPoke((currentlist) => [...currentlist, response.data]);
     });
   }, [url]);
-  console.log("poke", pokemon);
+  console.log("pokemonki", pokemon);
 
   return (
     <div

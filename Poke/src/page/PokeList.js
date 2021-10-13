@@ -43,7 +43,7 @@ const useStyles = makeStyles({
   },
 });
 
-function PokeList() {
+function PokeList({ setPokemon2, pokemon2 }) {
   const history = useHistory();
   const classes = useStyles();
   const [pokemon, setPokemon] = useState();
@@ -57,10 +57,12 @@ function PokeList() {
       .then((response) => {
         console.log("dane", response.data);
         setPokemon(response.data);
+        setPokemon2(response.data);
       });
   }, [pageValue]);
 
   console.log("pokemon", pokemon);
+  console.log("pokemon2", pokemon2);
 
   const prevPage = () => {
     if (pageValue === 0) {
