@@ -33,12 +33,14 @@ const Container = styled.div`
   background-color: mintcream;
 `;
 const Button = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
-  width: 1050px;
+  width: auto;
   border-radius: 1.1rem;
   color: red;
+  background-color: aliceblue;
 `;
 
 function PokemonCard({ url }) {

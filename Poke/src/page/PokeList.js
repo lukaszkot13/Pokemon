@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import PokemonThumb from "../components/PokemonThub";
+import Wyszukiwarka from "../components/Wyszukiwarka";
 
 const useStyles = makeStyles({
   pageContainer: {
@@ -62,30 +63,24 @@ function PokeList({ setPokemon2 }) {
   console.log("pokemon", pokemon);
 
   const prevPage = () => {
-    if (pageValue === 0) {
-      alert("Jesteś na pierwszej stronie ");
-      return;
-    }
     setPageValue(pageValue - 15);
-    setLimitValue(15);
+    if (pageValue === 1) {
+      setPageValue(10);
+    }
+    setPageValue(10);
   };
 
   const nextPage = () => {
-    if (pageValue === 150) {
-      alert("Jesteś na ostatnoej stronie");
-      return;
-    } else if (pageValue === 135) {
-      setLimitValue(1);
-    }
     setPageValue(pageValue + 15);
+    if (pageValue === 135) {
+      {
+        setPageValue(1);
+      }
+    }
   };
   return (
     <div>
-      <input
-        className={classes.input}
-        type="text"
-        placeholder="Wyszukaj Pokemona"
-      />
+      <Wyszukiwarka />
       <div className={classes.pageContainer}>
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>
