@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+
 import styled from "styled-components";
 import axios from "axios";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -14,7 +14,7 @@ const Skils = styled.div`
   display: flex;
   justify-content: space-around;
 `;
-const Image = styled.p`
+const Image = styled.img`
   width: 120px;
   height: 120px;
 `;
@@ -32,24 +32,16 @@ const Container = styled.div`
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
   background-color: mintcream;
 `;
-
-const useStyles = makeStyles({
-  image: {
-    width: "120px",
-    height: " 120px",
-  },
-  button: {
-    "align-items": "center",
-    "justify-content": "center",
-    height: "50px",
-    width: "950px",
-    "border-radius": "1.1rem",
-    color: "red",
-  },
-});
+const Button = styled.div`
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 1050px;
+  border-radius: 1.1rem;
+  color: red;
+`;
 
 function PokemonCard({ url }) {
-  const classes = useStyles();
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState();
 
@@ -66,10 +58,7 @@ function PokemonCard({ url }) {
         <div>
           <small>#0{pokemonDetails?.id}</small>
         </div>
-        <img
-          className={classes.image}
-          src={pokemonDetails?.sprites?.other.dream_world.front_default}
-        />
+        <Image src={pokemonDetails?.sprites?.other.dream_world.front_default} />
         <Wrapper>
           <h3>{pokemonDetails?.name}</h3>
           <Skils>
@@ -98,9 +87,7 @@ function PokemonCard({ url }) {
           <small>Type: {pokemonDetails?.types?.[0].type.name}</small>
         </Wrapper>
       </Container>
-      <button className={classes.button} onClick={() => history.push(`/`)}>
-        Strona Główna
-      </button>
+      <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
     </div>
   );
 }
