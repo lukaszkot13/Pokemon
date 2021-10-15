@@ -13,7 +13,9 @@ const Container = styled.input`
 function Wyszukiwarka() {
   const [searchPokemon, setSearchPokemon] = useState("");
 
-  useEffect(() => {});
+  useEffect(() => {
+    const 
+  });
 
   return (
     <>
@@ -27,4 +29,4 @@ function Wyszukiwarka() {
     </>
   );
 }
-export default Wyszukiwarka;
+export default Wyszukiwarka({setSearchPokemon});

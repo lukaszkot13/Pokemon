@@ -19,10 +19,10 @@ const Image = styled.img`
   height: 400px;
 `;
 const Container = styled.div`
-  display: -webkit-box;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   padding: 1.5rem 0;
   margin: 0.3rem;
   border: 1px solid #efefef;
