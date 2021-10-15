@@ -2,7 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
+import styled from "styled-components";
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+const Image = styled.img`
+  width: 400px;
+  height: 400px;
+`;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  margin: 0.3rem;
+  border: 1px solid #efefef;
+  border-radius: 1.2rem;
+  min-width: 304px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  background-color: mintcream, "&:hover" transform "scale(1.1)";
+`;
 const useStyles = makeStyles({
   wrapper: {
     display: "flex",
@@ -16,10 +40,6 @@ const useStyles = makeStyles({
   height: {
     display: "flex",
     flexDirection: "column",
-  },
-  image: {
-    width: "120px",
-    height: " 120px",
   },
   container: {
     display: "flex",
@@ -40,17 +60,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PokemonThumb = ({
-  url,
-  id,
-  image,
-  name,
-  type,
-  height,
-  weight,
-  ability,
-  baseExperience,
-}) => {
+const PokemonThumb = ({ url, name }) => {
   const classes = useStyles();
   const [pokemon, setPokemon] = useState([]);
   const history = useHistory();
@@ -67,21 +77,19 @@ const PokemonThumb = ({
   }, [url]);
   console.log("pokemonki", pokemon);
 
+  if (!pokemon) {
+    return null;
+  }
   return (
-    <div
-      className={classes.container}
-      onClick={handleClick}
-      data-name={pokemon.name}
-    >
+    <Container onClick={handleClick} data-name={pokemon.name}>
       <div className="number">
-        <small>#0{pokemon?.id}</small>
+        <small>#0{pokemon.id}</small>
       </div>
-      <img
-        className={classes.image}
+      <Image
         src={pokemon?.sprites?.other.dream_world.front_default}
-        alt={name}
+        alt={pokemon?.name}
       />
-      <div className={classes.wrapper}>
+      <Wrapper>
         <h3>{pokemon.name}</h3>
         <div className={classes.umiejetnosci}>
           <div className={classes.ustawienie}>
@@ -104,8 +112,8 @@ const PokemonThumb = ({
           </div>
         </div>
         <small>Type: {pokemon?.types?.[0].type.name}</small>
-      </div>
-    </div>
+      </Wrapper>
+    </Container>
   );
 };
 

@@ -15,14 +15,14 @@ const Skils = styled.div`
   justify-content: space-around;
 `;
 const Image = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 400px;
+  height: 400px;
 `;
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: -webkit-box;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 1.5rem 0;
   margin: 0.3rem;
   border: 1px solid #efefef;
@@ -54,22 +54,24 @@ function PokemonCard({ url }) {
   }, []);
   console.log("PokemonCard", pokemonDetails);
 
+  if (!pokemonDetails) {
+    return null;
+  }
+
   return (
     <div>
-      <Container data-name={pokemonDetails?.name}>
-        <div>
-          <small>#0{pokemonDetails?.id}</small>
-        </div>
-        <Image src={pokemonDetails?.sprites?.other.dream_world.front_default} />
+      <Container data-name={pokemonDetails.name}>
+        <Image src={pokemonDetails.sprites.other.dream_world.front_default} />
+
         <Wrapper>
-          <h3>{pokemonDetails?.name}</h3>
+          <h3>{pokemonDetails.name}</h3>
           <Skils>
             <div>
-              <h5>{pokemonDetails?.height}</h5>
+              <h5>{pokemonDetails.height}</h5>
               <h4>Height</h4>
             </div>
             <div>
-              <h5>{pokemonDetails?.base_experience}</h5>
+              <h5>{pokemonDetails.base_experience}</h5>
               <h4>Base Experience</h4>
             </div>
           </Skils>
@@ -78,7 +80,7 @@ function PokemonCard({ url }) {
           </div>
           <Skils>
             <div>
-              <h5>{pokemonDetails?.abilities?.[0].ability.name}</h5>
+              <h5>{pokemonDetails.abilities[0].ability.name}</h5>
               <h4>Ability</h4>
             </div>
             <div>
@@ -86,7 +88,8 @@ function PokemonCard({ url }) {
               <h4>Weight</h4>
             </div>
           </Skils>
-          <small>Type: {pokemonDetails?.types?.[0].type.name}</small>
+          <small>Type: {pokemonDetails.types[0].type.name}</small>
+          <small>#0{pokemonDetails.id}</small>
         </Wrapper>
       </Container>
       <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
