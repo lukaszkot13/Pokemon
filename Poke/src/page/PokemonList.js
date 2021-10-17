@@ -42,12 +42,13 @@ const useStyles = makeStyles({
   },
 });
 
-function PokeList({ setPokemon2 }) {
+function PokemonList({ setPokemon2 }) {
   const classes = useStyles();
   const [pokemon, setPokemon] = useState();
   const [limitValue, setLimitValue] = useState(15);
   const [pageValue, setPageValue] = useState(0);
   const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
+  const [searchPokemon, setSearchPokemon] = useState("");
 
   useEffect(() => {
     axios
@@ -104,4 +105,4 @@ function PokeList({ setPokemon2 }) {
     </div>
   );
 }
-export default PokeList;
+export default PokemonList;

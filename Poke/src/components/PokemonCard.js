@@ -42,10 +42,15 @@ const Button = styled.div`
   color: red;
   background-color: aliceblue;
 `;
-
+const Ikona = styled.div`
+  color: ${({ isFavourite }) => (isFavourite ? "red" : "black")};
+`;
 function PokemonCard({ url }) {
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState();
+  const DB_URL = `http://localhost:3000`;
+  const [isFavorite, setIsFavorite] = useState();
+  const [heart, setHeart] = useState();
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -53,6 +58,24 @@ function PokemonCard({ url }) {
     });
   }, []);
   console.log("PokemonCard", pokemonDetails);
+
+  useEffect(() => {});
+
+  const AddFavorite = () => {
+    if (isFavorite) {
+      axios
+        .delete(`${DB_URL}/ulubione/${pokemonDetails.id}`)
+        .then(() => setIsFavorite(!isFavorite));
+    } else {
+      axios
+        .post(`${DB_URL}/ulubione/`, {
+          name: pokemonDetails.name,
+          id: pokemonDetails.id,
+        })
+        .then(() => setIsFavorite(!isFavorite))
+        .catch(() => alert("Błąd"));
+    }
+  };
 
   if (!pokemonDetails) {
     return null;
@@ -76,7 +99,9 @@ function PokemonCard({ url }) {
             </div>
           </Skils>
           <div>
-            <FavoriteBorderOutlinedIcon />
+            <Ikona>
+              <FavoriteBorderOutlinedIcon onClick={() => AddFavorite()} />
+            </Ikona>
           </div>
           <Skils>
             <div>

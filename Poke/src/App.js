@@ -6,8 +6,7 @@ import Navi from "./page/Navi";
 import Ulubione from "./page/Ulubione";
 import Arena from "./page/Arena";
 
-import PokeList from "./page/PokeList";
-import PokemonThumb from "./components/PokemonThub";
+import PokemonList from "./page/PokemonList";
 import PokemonCard from "./components/PokemonCard";
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
       <Router>
         <Navi />
         <Route path="/" exact>
-          <PokeList setPokemon2={setPokemon2} />
+          <PokemonList setPokemon2={setPokemon2} />
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
