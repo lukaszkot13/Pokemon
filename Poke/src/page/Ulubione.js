@@ -38,7 +38,7 @@ const Container = styled.div`
 function Ulubione({ isFavorite, DB_URL }) {
   const [favorite, setFavorite] = useState();
 
-  useEffect(async () => {
+  useEffect(() => {
     axios
       .get(`http://localhost:3000/ulubione/`)
       .then((res) => setFavorite(res.data));

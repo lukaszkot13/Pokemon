@@ -50,7 +50,7 @@ function PokemonCard({ url }) {
   const [pokemonDetails, setPokemonDetails] = useState();
   const DB_URL = `http://localhost:3000`;
   const [isFavorite, setIsFavorite] = useState();
-  const [heart, setHeart] = useState();
+  const [flag, setFlag] = useState();
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -59,7 +59,14 @@ function PokemonCard({ url }) {
   }, []);
   console.log("PokemonCard", pokemonDetails);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const pokemonFavouriteFlag = isFavorite?.includes(pokemonDetails?.id);
+    if (pokemonFavouriteFlag === true) {
+      setFlag(true);
+    } else if (pokemonFavouriteFlag === false) {
+      setFlag(false);
+    }
+  }, [isFavorite]);
 
   const AddFavorite = () => {
     if (isFavorite) {
