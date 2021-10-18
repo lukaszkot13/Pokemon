@@ -45,12 +45,10 @@ const Button = styled.div`
 const Ikona = styled.div`
   color: ${({ isFavourite }) => (isFavourite ? "red" : "black")};
 `;
-function PokemonCard({ url }) {
+function PokemonCard({ url, DB_URL }) {
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState([]);
-  const DB_URL = `http://localhost:3000`;
   const [isFavorite, setIsFavorite] = useState(null);
-  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -63,25 +61,15 @@ function PokemonCard({ url }) {
     axios.get(`${DB_URL}/ulubione`).then((response) => {
       setIsFavorite(response.data);
     });
-  }, []);
-  console.log("pokemonFavorite", isFavorite);
-
-  useEffect(() => {
-    const FavouriteFlag = isFavorite?.includes(pokemonDetails?.id);
-    if (FavouriteFlag === true) {
-      setFlag(true);
-    } else if (FavouriteFlag === false) {
-      setFlag(false);
-    }
-  }, [isFavorite]);
+  }, [DB_URL]);
+  console.log("ISFAVORITE", isFavorite);
 
   const AddFavorite = () => {
-    if (flag === true) {
+    if (isFavorite) {
       axios
         .delete(`${DB_URL}/ulubione/${pokemonDetails.id}`)
         .then(() => setIsFavorite(!isFavorite));
-      setFlag(false);
-    } else if (flag === false) {
+    } else {
       axios
         .post(`${DB_URL}/ulubione/`, {
           id: pokemonDetails.id,
@@ -95,7 +83,6 @@ function PokemonCard({ url }) {
         })
         .then(() => setIsFavorite(!isFavorite))
         .catch(() => alert("Błąd"));
-      setFlag(true);
     }
   };
 

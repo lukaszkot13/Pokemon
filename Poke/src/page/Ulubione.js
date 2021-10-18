@@ -39,16 +39,15 @@ function Ulubione({ isFavorite, DB_URL }) {
   const [favorite, setFavorite] = useState();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/ulubione/`)
-      .then((res) => setFavorite(res.data));
+    axios.get(`${DB_URL}/ulubione/`).then((res) => setFavorite(res.data));
   }, []);
   console.log("ulubisone", favorite);
 
   if (!favorite) return null;
   return (
     <div>
-      <div>{favorite.name}</div>
+      <div>{favorite?.[0].name}</div>
+      <h1>{favorite?.[0].weight}</h1>
     </div>
   );
 }

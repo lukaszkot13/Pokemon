@@ -11,6 +11,7 @@ import PokemonCard from "./components/PokemonCard";
 
 function App() {
   const [pokemon2, setPokemon2] = useState(null);
+  const DB_URL = `http://localhost:3000`;
   console.log("pokemon", pokemon2);
   return (
     <div>
@@ -21,11 +22,11 @@ function App() {
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
-            <PokemonCard url={item.url} isFavorite={item.isFavorite} />
+            <PokemonCard url={item.url} DB_URL={DB_URL} />
           </Route>
         ))}
         <Route path="/ulubione">
-          <Ulubione />
+          <Ulubione DB_URL={DB_URL} />
         </Route>
         <Route path="/arena">
           <Arena />
