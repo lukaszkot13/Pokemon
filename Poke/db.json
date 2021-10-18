@@ -1,3 +1,16 @@
 {
-  "Ulubione": []
+  "Ulubione": [
+    {
+      "id": 13,
+      "name": "weedle"
+    },
+    {
+      "id": 2,
+      "name": "ivysaur"
+    },
+    {
+      "id": 3,
+      "name": "venusaur"
+    }
+  ]
 }

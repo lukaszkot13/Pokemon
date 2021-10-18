@@ -1,17 +1,51 @@
-import { style } from "@mui/system";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+const Skils = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+const Image = styled.img`
+  width: 400px;
+  height: 400px;
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  margin: 0.3rem;
+  border: 1px solid #efefef;
+  border-radius: 1.2rem;
+  min-width: 304px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  background-color: mintcream;
+`;
 
 // const Favorite = style.div`
 
 // color: ${({ isFavourite }) => (isFavourite ? "red" : "black")};
 // `;
 
-function Ulubione() {
-  return (
-    <div>
-      <FavoriteBorderOutlinedIcon />
-    </div>
-  );
+function Ulubione({ isFavorite, DB_URL }) {
+  const [favorite, setFavorite] = useState();
+
+  useEffect(async () => {
+    const response = await axios.get(`http://localhost:3000/ulubione/`);
+    setFavorite(response.data);
+
+    console.log("ulubione", favorite);
+  }, [isFavorite]);
+
+  return <div></div>;
 }
 
 export default Ulubione;

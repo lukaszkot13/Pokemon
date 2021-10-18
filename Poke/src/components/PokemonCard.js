@@ -48,7 +48,7 @@ const Ikona = styled.div`
 function PokemonCard({ url }) {
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState();
-  const DB_URL = `http://localhost:3000`;
+  const DB_URL = `http://localhost:3000/`;
   const [isFavorite, setIsFavorite] = useState();
   const [heart, setHeart] = useState();
 
@@ -69,8 +69,8 @@ function PokemonCard({ url }) {
     } else {
       axios
         .post(`${DB_URL}/ulubione/`, {
-          name: pokemonDetails.name,
           id: pokemonDetails.id,
+          name: pokemonDetails.name,
         })
         .then(() => setIsFavorite(!isFavorite))
         .catch(() => alert("Błąd"));
