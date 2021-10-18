@@ -21,11 +21,7 @@ function App() {
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>
-            <PokemonCard
-              url={item.url}
-              DB_URL={item.DB_URL}
-              isFavorite={item.isFavorite}
-            />
+            <PokemonCard url={item.url} isFavorite={item.isFavorite} />
           </Route>
         ))}
         <Route path="/ulubione">

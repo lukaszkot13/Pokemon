@@ -48,7 +48,7 @@ const Ikona = styled.div`
 function PokemonCard({ url }) {
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState();
-  const DB_URL = `http://localhost:3000/`;
+  const DB_URL = `http://localhost:3000`;
   const [isFavorite, setIsFavorite] = useState();
   const [heart, setHeart] = useState();
 
@@ -71,6 +71,12 @@ function PokemonCard({ url }) {
         .post(`${DB_URL}/ulubione/`, {
           id: pokemonDetails.id,
           name: pokemonDetails.name,
+          image: pokemonDetails.sprites.other.dream_world.front_default,
+          height: pokemonDetails.height,
+          base_experience: pokemonDetails.base_experience,
+          ability: pokemonDetails.abilities[0].ability.name,
+          weight: pokemonDetails?.weight,
+          type: pokemonDetails.types[0].type.name,
         })
         .then(() => setIsFavorite(!isFavorite))
         .catch(() => alert("Błąd"));
