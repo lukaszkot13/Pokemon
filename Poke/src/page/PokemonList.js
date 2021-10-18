@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
-import PokemonThumb from "../components/PokemonThub";
+import PokemonThumb from "../components/PokemonThumb";
 
 const useStyles = makeStyles({
   pageContainer: {

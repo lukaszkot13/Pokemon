@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PokemonThumb = ({ url, name }) => {
+const PokemonThumb = ({ url }) => {
   const classes = useStyles();
   const [pokemon, setPokemon] = useState([]);
   const history = useHistory();

@@ -47,10 +47,10 @@ const Ikona = styled.div`
 `;
 function PokemonCard({ url }) {
   const history = useHistory();
-  const [pokemonDetails, setPokemonDetails] = useState();
+  const [pokemonDetails, setPokemonDetails] = useState([]);
   const DB_URL = `http://localhost:3000`;
-  const [isFavorite, setIsFavorite] = useState();
-  const [flag, setFlag] = useState();
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -60,20 +60,28 @@ function PokemonCard({ url }) {
   console.log("PokemonCard", pokemonDetails);
 
   useEffect(() => {
-    const pokemonFavouriteFlag = isFavorite?.includes(pokemonDetails?.id);
-    if (pokemonFavouriteFlag === true) {
+    axios.get(`${DB_URL}/ulubione`).then((response) => {
+      setIsFavorite(response.data);
+    });
+  }, []);
+  console.log("pokemonFavorite", isFavorite);
+
+  useEffect(() => {
+    const FavouriteFlag = isFavorite?.includes(pokemonDetails?.id);
+    if (FavouriteFlag === true) {
       setFlag(true);
-    } else if (pokemonFavouriteFlag === false) {
+    } else if (FavouriteFlag === false) {
       setFlag(false);
     }
   }, [isFavorite]);
 
   const AddFavorite = () => {
-    if (isFavorite) {
+    if (flag === true) {
       axios
         .delete(`${DB_URL}/ulubione/${pokemonDetails.id}`)
         .then(() => setIsFavorite(!isFavorite));
-    } else {
+      setFlag(false);
+    } else if (flag === false) {
       axios
         .post(`${DB_URL}/ulubione/`, {
           id: pokemonDetails.id,
@@ -87,6 +95,7 @@ function PokemonCard({ url }) {
         })
         .then(() => setIsFavorite(!isFavorite))
         .catch(() => alert("Błąd"));
+      setFlag(true);
     }
   };
 
@@ -97,17 +106,17 @@ function PokemonCard({ url }) {
   return (
     <div>
       <Container data-name={pokemonDetails.name}>
-        <Image src={pokemonDetails.sprites.other.dream_world.front_default} />
+        <Image src={pokemonDetails?.sprites?.other.dream_world.front_default} />
 
         <Wrapper>
-          <h3>{pokemonDetails.name}</h3>
+          <h3>{pokemonDetails?.name}</h3>
           <Skils>
             <div>
-              <h5>{pokemonDetails.height}</h5>
+              <h5>{pokemonDetails?.height}</h5>
               <h4>Height</h4>
             </div>
             <div>
-              <h5>{pokemonDetails.base_experience}</h5>
+              <h5>{pokemonDetails?.base_experience}</h5>
               <h4>Base Experience</h4>
             </div>
           </Skils>
@@ -118,7 +127,7 @@ function PokemonCard({ url }) {
           </div>
           <Skils>
             <div>
-              <h5>{pokemonDetails.abilities[0].ability.name}</h5>
+              <h5>{pokemonDetails?.abilities?.[0].ability.name}</h5>
               <h4>Ability</h4>
             </div>
             <div>
@@ -126,8 +135,8 @@ function PokemonCard({ url }) {
               <h4>Weight</h4>
             </div>
           </Skils>
-          <small>Type: {pokemonDetails.types[0].type.name}</small>
-          <small>#0{pokemonDetails.id}</small>
+          <small>Type: {pokemonDetails?.types?.[0].type.name}</small>
+          <small>#0{pokemonDetails?.id}</small>
         </Wrapper>
       </Container>
       <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
