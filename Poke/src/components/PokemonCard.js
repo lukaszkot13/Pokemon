@@ -44,13 +44,14 @@ const Button = styled.div`
   background-color: aliceblue;
 `;
 const Ikona = styled.div`
-  color: ${({ isFavourite }) => (isFavourite ? "red" : "black")};
+  color: ${({ isFavorite }) => (isFavorite ? "red" : "black")};
 `;
 function PokemonCard({ url, DB_URL }) {
   const history = useHistory();
   const [pokemonDetails, setPokemonDetails] = useState();
   const [isFavorite, setIsFavorite] = useState(null);
   const [fight, setFight] = useState(null);
+  const [favouritePokemons, setFavouritePokemons] = useState(null);
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -61,10 +62,17 @@ function PokemonCard({ url, DB_URL }) {
 
   useEffect(() => {
     axios.get(`${DB_URL}/ulubione`).then((response) => {
-      setIsFavorite(response.data);
+      setFavouritePokemons(response.data);
     });
   }, [DB_URL]);
-  console.log("ISFAVORITE", isFavorite);
+  console.log("ISFAVORITE", favouritePokemons);
+
+  useEffect(() => {
+    const isFavourites = favouritePokemons
+      ?.map((item) => item.id)
+      .includes(pokemonDetails.id);
+    setIsFavorite(isFavourites);
+  }, [favouritePokemons]);
 
   const AddFavorite = () => {
     if (isFavorite === true) {
@@ -75,15 +83,8 @@ function PokemonCard({ url, DB_URL }) {
       axios
         .post(`${DB_URL}/ulubione/`, {
           id: pokemonDetails.id,
-          name: pokemonDetails.name,
-          image: pokemonDetails.sprites.other.dream_world.front_default,
-          height: pokemonDetails.height,
-          base_experience: pokemonDetails.base_experience,
-          ability: pokemonDetails.abilities[0].ability.name,
-          weight: pokemonDetails?.weight,
-          type: pokemonDetails.types[0].type.name,
         })
-        .then(() => setIsFavorite(isFavorite))
+        .then(() => setIsFavorite(true))
         .catch(() => alert("Błąd"));
     }
   };
@@ -99,17 +100,11 @@ function PokemonCard({ url, DB_URL }) {
       axios
         .post(`${DB_URL}/arena`, {
           id: pokemonDetails.id,
-          name: pokemonDetails.name,
-          image: pokemonDetails.sprites.other.dream_world.front_default,
-          height: pokemonDetails.height,
-          base_experience: pokemonDetails.base_experience,
-          ability: pokemonDetails.abilities[0].ability.name,
-          weight: pokemonDetails?.weight,
-          type: pokemonDetails.types[0].type.name,
         })
         .then(() => setFight(fight));
     }
   };
+
   if (!pokemonDetails) {
     return null;
   }
@@ -132,7 +127,7 @@ function PokemonCard({ url, DB_URL }) {
             </div>
           </Skils>
           <div>
-            <Ikona>
+            <Ikona isFavorite={isFavorite}>
               <FavoriteBorderOutlinedIcon onClick={() => AddFavorite()} />
             </Ikona>
             <br />

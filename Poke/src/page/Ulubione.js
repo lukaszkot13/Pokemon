@@ -47,7 +47,6 @@ function Ulubione({ DB_URL }) {
   return (
     <div>
       <div>{favorite?.[0].name}</div>
-      <h1>{favorite?.[0].weight}</h1>
     </div>
   );
 }
