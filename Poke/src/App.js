@@ -29,7 +29,7 @@ function App() {
           <Ulubione DB_URL={DB_URL} />
         </Route>
         <Route path="/arena">
-          <Arena />
+          <Arena DB_URL={DB_URL} />
         </Route>
       </Router>
     </div>

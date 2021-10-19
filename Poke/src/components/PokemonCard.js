@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 
 const Wrapper = styled.div`
   display: flex;
@@ -47,8 +48,9 @@ const Ikona = styled.div`
 `;
 function PokemonCard({ url, DB_URL }) {
   const history = useHistory();
-  const [pokemonDetails, setPokemonDetails] = useState([]);
+  const [pokemonDetails, setPokemonDetails] = useState();
   const [isFavorite, setIsFavorite] = useState(null);
+  const [fight, setFight] = useState(null);
 
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
@@ -65,10 +67,10 @@ function PokemonCard({ url, DB_URL }) {
   console.log("ISFAVORITE", isFavorite);
 
   const AddFavorite = () => {
-    if (isFavorite) {
+    if (isFavorite === true) {
       axios
         .delete(`${DB_URL}/ulubione/${pokemonDetails.id}`)
-        .then(() => setIsFavorite(!isFavorite));
+        .then(() => setIsFavorite(isFavorite === false));
     } else {
       axios
         .post(`${DB_URL}/ulubione/`, {
@@ -81,11 +83,33 @@ function PokemonCard({ url, DB_URL }) {
           weight: pokemonDetails?.weight,
           type: pokemonDetails.types[0].type.name,
         })
-        .then(() => setIsFavorite(!isFavorite))
+        .then(() => setIsFavorite(isFavorite))
         .catch(() => alert("Błąd"));
     }
   };
+  useEffect(() => {
+    axios.get(`${DB_URL}/arena`).then((response) => {
+      setFight(response.data.length >= 2 ? false : true);
+    });
+  }, [DB_URL]);
+  console.log("WALKA", fight);
 
+  const AddArena = () => {
+    if (fight) {
+      axios
+        .post(`${DB_URL}/arena`, {
+          id: pokemonDetails.id,
+          name: pokemonDetails.name,
+          image: pokemonDetails.sprites.other.dream_world.front_default,
+          height: pokemonDetails.height,
+          base_experience: pokemonDetails.base_experience,
+          ability: pokemonDetails.abilities[0].ability.name,
+          weight: pokemonDetails?.weight,
+          type: pokemonDetails.types[0].type.name,
+        })
+        .then(() => setFight(fight));
+    }
+  };
   if (!pokemonDetails) {
     return null;
   }
@@ -111,7 +135,10 @@ function PokemonCard({ url, DB_URL }) {
             <Ikona>
               <FavoriteBorderOutlinedIcon onClick={() => AddFavorite()} />
             </Ikona>
+            <br />
+            <SportsKabaddiIcon onClick={() => AddArena()} />
           </div>
+
           <Skils>
             <div>
               <h5>{pokemonDetails?.abilities?.[0].ability.name}</h5>
