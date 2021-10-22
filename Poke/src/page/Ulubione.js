@@ -1,77 +1,34 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import PokemonCard from "../components/PokemonCard";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+const IkonaFavorite = styled.div`
+  color: ${({ isFavorite }) => (isFavorite ? "red" : "black")};
 `;
-const Skils = styled.div`
+const Page = styled.div`
   display: flex;
   justify-content: space-around;
-`;
-const Image = styled.img`
-  width: 200px;
-  height: 250px;
-  margin-left: 5%;
-`;
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 0;
-  margin: 0.3rem;
-  border: 1px solid #efefef;
-  border-radius: 1.2rem;
-  min-width: 304px;
-  text-align: center;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
-  background-color: mintcream;
+  flex-wrap: wrap;
 `;
 
-function Ulubione({ DB_URL }) {
+function Ulubione({ DB_URL, BASE_URL }) {
   const [favorite, setFavorite] = useState();
 
   useEffect(() => {
-    axios.get(`${DB_URL}/ulubione/`).then((res) => setFavorite(res.data));
+    axios
+      .get(`${DB_URL}/ulubione/`)
+      .then((res) => setFavorite(res.data.map(({ id }) => +id)));
   }, []);
   console.log("ulubisone", favorite);
 
   if (!favorite) return null;
   return (
-    <div>
-      <Container>
-        <Image />
-
-        <Wrapper>
-          <h3>asd</h3>
-          <Skils>
-            <div>
-              <h5>asd</h5>
-              <h4>Height</h4>
-            </div>
-            <div>
-              <h5></h5>
-              <h4>Base Experience</h4>
-            </div>
-          </Skils>
-          <Skils>
-            <div>
-              <h5></h5>
-              <h4>Ability</h4>
-            </div>
-            <div>
-              <h5></h5>
-              <h4>Weight</h4>
-            </div>
-          </Skils>
-          <small>Type: </small>
-          <small>#0</small>
-        </Wrapper>
-      </Container>
-    </div>
+    <Page>
+      {favorite?.map((id) => (
+        <PokemonCard url={`${BASE_URL}${id}`} />
+      ))}
+    </Page>
   );
 }
 

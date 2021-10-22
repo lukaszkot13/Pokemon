@@ -42,12 +42,11 @@ const useStyles = makeStyles({
   },
 });
 
-function PokemonList({ setPokemon2 }) {
+function PokemonList({ setPokemon2, BASE_URL }) {
   const classes = useStyles();
   const [pokemon, setPokemon] = useState();
   const [limitValue, setLimitValue] = useState(15);
   const [pageValue, setPageValue] = useState(0);
-  const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
   const [searchPokemon, setSearchPokemon] = useState("");
 
   useEffect(() => {
@@ -82,11 +81,15 @@ function PokemonList({ setPokemon2 }) {
   };
   return (
     <div>
-      <input
-        className={classes.input}
-        type="text"
-        placeholder="Wyszukaj Pokemona"
-      />
+      {/* {pokemon.filter((pokemon) => {
+        if (searchPokemon === "") {
+          return pokemon;
+        } else if (
+          pokemon.name.toLowerCase().includes(searchPokemon.toLowerCase())
+        ) {
+          return pokemon;
+        }
+      })} */}
       <div className={classes.pageContainer}>
         <div className={classes.pokemonContainer}>
           <div className={classes.allContainer}>

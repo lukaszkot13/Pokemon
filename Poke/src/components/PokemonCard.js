@@ -3,9 +3,13 @@ import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 import axios from "axios";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
+const Page = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,14 +20,15 @@ const Skils = styled.div`
   justify-content: space-around;
 `;
 const Image = styled.img`
-  width: 400px;
-  height: 400px;
+  width: 150px;
+  height: 150px;
 `;
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 400px;
   padding: 1.5rem 0;
   margin: 0.3rem;
   border: 1px solid #efefef;
@@ -37,8 +42,20 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 3%;
   height: 50px;
-  width: auto;
+  width: 300px;
+  border-radius: 1.1rem;
+  color: red;
+  background-color: aliceblue;
+`;
+const ButtonDel = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1%;
+  height: 50px;
+  width: 300px;
   border-radius: 1.1rem;
   color: red;
   background-color: aliceblue;
@@ -113,7 +130,7 @@ function PokemonCard({ url, DB_URL }) {
   }
 
   return (
-    <div>
+    <Page>
       <Container data-name={pokemonDetails.name}>
         <Image src={pokemonDetails?.sprites?.other.dream_world.front_default} />
 
@@ -131,7 +148,7 @@ function PokemonCard({ url, DB_URL }) {
           </Skils>
           <div>
             <IkonaFavorite isFavorite={isFavorite}>
-              <FavoriteBorderOutlinedIcon onClick={() => AddFavorite()} />
+              <FavoriteIcon onClick={() => AddFavorite()} />
             </IkonaFavorite>
             <br />
             <IkonaArena fight={fight}>
@@ -152,9 +169,10 @@ function PokemonCard({ url, DB_URL }) {
           <small>Type: {pokemonDetails?.types?.[0].type.name}</small>
           <small>#0{pokemonDetails?.id}</small>
         </Wrapper>
+        <ButtonDel>Usuń z Areny</ButtonDel>
+        <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
       </Container>
-      <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
-    </div>
+    </Page>
   );
 }
 
