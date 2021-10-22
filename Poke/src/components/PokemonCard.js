@@ -73,7 +73,7 @@ function PokemonCard({ url, DB_URL }) {
   useEffect(() => {
     const isFavourites = favouritePokemons
       ?.map((item) => item.id)
-      .includes(+pokemonDetails.id);
+      .includes(pokemonDetails.id);
     setIsFavorite(isFavourites);
   }, [favouritePokemons]);
 

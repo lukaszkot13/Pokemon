@@ -65,11 +65,23 @@ const S = {
 
 function Arena({ DB_URL }) {
   const [fight, setFight] = useState();
+  const [pokeArena, setPokeArena] = useState(null);
 
   useEffect(() => {
     axios.get(`${DB_URL}/arena/`).then((res) => setFight(res.data));
   }, []);
   console.log("Walka", fight);
+
+  useEffect(() => {
+    const arenaPokemon = pokeArena?.map((item) => item.id).includes(fight.id);
+    setPokeArena(arenaPokemon);
+  }, [pokeArena]);
+
+  const deleteArena = () => {
+    axios
+      .delete(`${DB_URL}/arena/${fight.id}`)
+      .then((res) => setFight(res.data));
+  };
 
   if (!fight) return null;
   return (
@@ -77,7 +89,7 @@ function Arena({ DB_URL }) {
       <S.Arena>
         <S.StanowiskoPierwsze>
           <S.Container>
-            <S.Usun>Usun z Areny</S.Usun>
+            <S.Usun onClick={() => deleteArena()}>Usun z Areny</S.Usun>
             <S.Image />
 
             <S.Wrapper>
