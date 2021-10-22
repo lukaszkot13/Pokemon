@@ -28,6 +28,39 @@ const S = {
     margin-top: 15%;
     border-radius: 10%;
   `,
+  Wrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  `,
+  Skils: styled.div`
+    display: flex;
+    justify-content: space-around;
+  `,
+  Image: styled.img`
+    width: 100px;
+    height: 130px;
+    margin-top: 3%;
+  `,
+  Container: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+    margin: 0.3rem;
+    border: 1px solid #efefef;
+    border-radius: 1.2rem;
+    min-width: 304px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+    background-color: mintcream;
+  `,
+  Usun: styled.button`
+    width: 150px;
+    height: 20px;
+    border-radius: 10%;
+  `,
 };
 
 function Arena({ DB_URL }) {
@@ -42,9 +75,71 @@ function Arena({ DB_URL }) {
   return (
     <div>
       <S.Arena>
-        <S.StanowiskoPierwsze>{fight?.[0].name}</S.StanowiskoPierwsze>
+        <S.StanowiskoPierwsze>
+          <S.Container>
+            <S.Usun>Usun z Areny</S.Usun>
+            <S.Image />
+
+            <S.Wrapper>
+              <h3></h3>
+              <S.Skils>
+                <div>
+                  <h5></h5>
+                  <h4>Height</h4>
+                </div>
+                <div>
+                  <h5></h5>
+                  <h4>Base Experience</h4>
+                </div>
+              </S.Skils>
+              <S.Skils>
+                <div>
+                  <h5></h5>
+                  <h4>Ability</h4>
+                </div>
+                <div>
+                  <h5></h5>
+                  <h4>Weight</h4>
+                </div>
+              </S.Skils>
+              <small>Type: </small>
+              <small>#0</small>
+            </S.Wrapper>
+          </S.Container>
+        </S.StanowiskoPierwsze>
         <S.Przycisk>WALKA</S.Przycisk>
-        <S.StanowiskoDrugie>{fight?.[1].name}</S.StanowiskoDrugie>
+        <S.StanowiskoDrugie>
+          <S.Container>
+            <S.Usun>Usun z Areny</S.Usun>
+            <S.Image />
+
+            <S.Wrapper>
+              <h3></h3>
+              <S.Skils>
+                <div>
+                  <h5></h5>
+                  <h4>Height</h4>
+                </div>
+                <div>
+                  <h5></h5>
+                  <h4>Base Experience</h4>
+                </div>
+              </S.Skils>
+              <S.Skils>
+                <div>
+                  <h5></h5>
+                  <h4>Ability</h4>
+                </div>
+                <div>
+                  <h5></h5>
+                  <h4>Weight</h4>
+                </div>
+              </S.Skils>
+              <small>Type: </small>
+              <small>#0</small>
+            </S.Wrapper>
+          </S.Container>
+        </S.StanowiskoDrugie>
       </S.Arena>
     </div>
   );

@@ -43,8 +43,11 @@ const Button = styled.div`
   color: red;
   background-color: aliceblue;
 `;
-const Ikona = styled.div`
+const IkonaFavorite = styled.div`
   color: ${({ isFavorite }) => (isFavorite ? "red" : "black")};
+`;
+const IkonaArena = styled.div`
+  color: ${({ fight }) => (fight ? "black" : "red")};
 `;
 function PokemonCard({ url, DB_URL }) {
   const history = useHistory();
@@ -70,7 +73,7 @@ function PokemonCard({ url, DB_URL }) {
   useEffect(() => {
     const isFavourites = favouritePokemons
       ?.map((item) => item.id)
-      .includes(pokemonDetails.id);
+      .includes(+pokemonDetails.id);
     setIsFavorite(isFavourites);
   }, [favouritePokemons]);
 
@@ -96,12 +99,12 @@ function PokemonCard({ url, DB_URL }) {
   console.log("WALKA", fight);
 
   const AddArena = () => {
-    if (fight) {
+    if (fight === true) {
       axios
         .post(`${DB_URL}/arena`, {
           id: pokemonDetails.id,
         })
-        .then(() => setFight(fight));
+        .then(() => setFight(fight === false));
     }
   };
 
@@ -127,11 +130,13 @@ function PokemonCard({ url, DB_URL }) {
             </div>
           </Skils>
           <div>
-            <Ikona isFavorite={isFavorite}>
+            <IkonaFavorite isFavorite={isFavorite}>
               <FavoriteBorderOutlinedIcon onClick={() => AddFavorite()} />
-            </Ikona>
+            </IkonaFavorite>
             <br />
-            <SportsKabaddiIcon onClick={() => AddArena()} />
+            <IkonaArena fight={fight}>
+              <SportsKabaddiIcon onClick={() => AddArena()} />
+            </IkonaArena>
           </div>
 
           <Skils>
