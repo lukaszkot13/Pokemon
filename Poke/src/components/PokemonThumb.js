@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -10,8 +9,14 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Image = styled.img`
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
+  &:hover {
+    transform: rotate(10deg);
+  }
+`;
+const Forms = styled.h3`
+  font-style: oblique;
 `;
 const Container = styled.div`
   display: flex;
@@ -30,19 +35,23 @@ const Container = styled.div`
     transform: scale(1.1);
   }
 `;
+const Titles = styled.h1`
+  text-transform: capitalize;
+  color: yellow;
+`;
+const DataName = styled.h3`
+  color: green;
+`;
 const Umiejetnosci = styled.div`
-  display: "flex";
+  display: flex;
   justify-content: space-around;
 `;
-const useStyles = makeStyles({
-  umiejetnosci: {
-    display: "flex",
-    justifyContent: " space-around",
-  },
-});
+const Title = styled.h4`
+  font-size: 15px;
+  color: blueviolet;
+`;
 
 const PokemonThumb = ({ url }) => {
-  const classes = useStyles();
   const [pokemon, setPokemon] = useState([]);
   const history = useHistory();
 
@@ -53,7 +62,6 @@ const PokemonThumb = ({ url }) => {
   useEffect(() => {
     axios.get(`${url}`).then((response) => {
       setPokemon(response.data);
-      // setPoke((currentlist) => [...currentlist, response.data]);
     });
   }, [url]);
   console.log("pokemonki", pokemon);
@@ -63,35 +71,33 @@ const PokemonThumb = ({ url }) => {
   }
   return (
     <Container onClick={handleClick} data-name={pokemon.name}>
-      <div className="number">
-        <small>#0{pokemon.id}</small>
-      </div>
+      <small>#0{pokemon.id}</small>
       <Image
         src={pokemon?.sprites?.other.dream_world.front_default}
         alt={pokemon?.name}
       />
       <Wrapper>
-        <h3>{pokemon.name}</h3>
-        <div className={classes.umiejetnosci}>
-          <div>
-            <h5>{pokemon.height}</h5>
-            <h4>Height</h4>
-          </div>
-          <div>
-            <h5>{pokemon.base_experience}</h5>
-            <h4>Base Experience</h4>
-          </div>
-        </div>
-        <div className={classes.umiejetnosci}>
-          <div>
-            <h5>{pokemon?.abilities?.[0].ability.name}</h5>
-            <h4>Ability</h4>
-          </div>
-          <div>
-            <h5>{pokemon.weight}</h5>
-            <h4>Weight</h4>
-          </div>
-        </div>
+        <Titles>{pokemon.name}</Titles>
+        <Umiejetnosci>
+          <Forms>
+            <DataName>{pokemon.height}</DataName>
+            <Title>Height</Title>
+          </Forms>
+          <Forms>
+            <DataName>{pokemon.base_experience}</DataName>
+            <Title>Base Experience</Title>
+          </Forms>
+        </Umiejetnosci>
+        <Umiejetnosci>
+          <Forms>
+            <DataName>{pokemon?.abilities?.[0].ability.name}</DataName>
+            <Title>Ability</Title>
+          </Forms>
+          <Forms>
+            <DataName>{pokemon.weight}</DataName>
+            <Title>Weight</Title>
+          </Forms>
+        </Umiejetnosci>
         <small>Type: {pokemon?.types?.[0].type.name}</small>
       </Wrapper>
     </Container>

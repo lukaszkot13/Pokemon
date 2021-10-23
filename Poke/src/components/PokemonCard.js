@@ -38,6 +38,20 @@ const Container = styled.div`
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
   background-color: mintcream;
 `;
+const Titles = styled.h1`
+  text-transform: capitalize;
+  color: blue;
+`;
+const Title = styled.h4`
+  font-size: 15px;
+  color: blueviolet;
+`;
+const Forms = styled.h3`
+  font-style: oblique;
+`;
+const DataName = styled.h3`
+  color: green;
+`;
 const Button = styled.div`
   display: flex;
   align-items: center;
@@ -48,6 +62,12 @@ const Button = styled.div`
   border-radius: 1.1rem;
   color: red;
   background-color: aliceblue;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+const Id = styled.p`
+  color: blue;
 `;
 const ButtonDel = styled.div`
   display: flex;
@@ -59,12 +79,21 @@ const ButtonDel = styled.div`
   border-radius: 1.1rem;
   color: red;
   background-color: aliceblue;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 const IkonaFavorite = styled.div`
   color: ${({ isFavorite }) => (isFavorite ? "red" : "black")};
+  &&:hover {
+    transform: scale(2.5);
+  }
 `;
 const IkonaArena = styled.div`
   color: ${({ fight }) => (fight ? "black" : "red")};
+  &:hover {
+    transform: rotate(180deg);
+  }
 `;
 function PokemonCard({ url, DB_URL }) {
   const history = useHistory();
@@ -105,7 +134,7 @@ function PokemonCard({ url, DB_URL }) {
           id: pokemonDetails.id,
         })
         .then(() => setIsFavorite(true))
-        .catch(() => alert("Błąd"));
+        .catch(() => alert("Pokemon jest juz dodany do ulubionych !!"));
     }
   };
   useEffect(() => {
@@ -125,6 +154,13 @@ function PokemonCard({ url, DB_URL }) {
     }
   };
 
+  const DeleteArena = ({ pokemonDetails }) => {
+    if (fight)
+      axios
+        .delete(`${DB_URL}/arena/${pokemonDetails.id}`)
+        .then(() => setFight(fight));
+  };
+
   if (!pokemonDetails) {
     return null;
   }
@@ -133,43 +169,40 @@ function PokemonCard({ url, DB_URL }) {
     <Page>
       <Container data-name={pokemonDetails.name}>
         <Image src={pokemonDetails?.sprites?.other.dream_world.front_default} />
-
         <Wrapper>
-          <h3>{pokemonDetails?.name}</h3>
+          <Titles>{pokemonDetails.name}</Titles>
           <Skils>
-            <div>
-              <h5>{pokemonDetails?.height}</h5>
-              <h4>Height</h4>
-            </div>
-            <div>
-              <h5>{pokemonDetails?.base_experience}</h5>
-              <h4>Base Experience</h4>
-            </div>
+            <Forms>
+              <DataName>{pokemonDetails?.height}</DataName>
+              <Title>Height</Title>
+            </Forms>
+            <Forms>
+              <DataName>{pokemonDetails?.base_experience}</DataName>
+              <Title>Base Experience</Title>
+            </Forms>
           </Skils>
-          <div>
-            <IkonaFavorite isFavorite={isFavorite}>
-              <FavoriteIcon onClick={() => AddFavorite()} />
-            </IkonaFavorite>
-            <br />
-            <IkonaArena fight={fight}>
-              <SportsKabaddiIcon onClick={() => AddArena()} />
-            </IkonaArena>
-          </div>
-
+          <IkonaFavorite isFavorite={isFavorite}>
+            <FavoriteIcon onClick={() => AddFavorite()} />
+          </IkonaFavorite>
+          <br />
+          <IkonaArena fight={fight}>
+            <SportsKabaddiIcon onClick={() => AddArena()} />
+          </IkonaArena>
           <Skils>
-            <div>
-              <h5>{pokemonDetails?.abilities?.[0].ability.name}</h5>
-              <h4>Ability</h4>
-            </div>
-            <div>
-              <h5>{pokemonDetails?.weight}</h5>
-              <h4>Weight</h4>
-            </div>
+            <Forms>
+              <DataName>{pokemonDetails?.abilities?.[0].ability.name}</DataName>
+              <Title>Ability</Title>
+            </Forms>
+            <Forms>
+              <DataName>{pokemonDetails?.weight}</DataName>
+              <Title>Weight</Title>
+            </Forms>
           </Skils>
-          <small>Type: {pokemonDetails?.types?.[0].type.name}</small>
-          <small>#0{pokemonDetails?.id}</small>
+          <DataName>Type: {pokemonDetails?.types?.[0].type.name}</DataName>
+          <Id>#0{pokemonDetails?.id}</Id>
         </Wrapper>
-        <ButtonDel>Usuń z Areny</ButtonDel>
+
+        <ButtonDel onClick={DeleteArena}>Usuń z Areny</ButtonDel>
         <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
       </Container>
     </Page>

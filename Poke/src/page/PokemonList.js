@@ -1,52 +1,50 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import styled from "styled-components";
 
 import PokemonThumb from "../components/PokemonThumb";
 
-const useStyles = makeStyles({
-  pageContainer: {
-    "flex-direction": "column",
-    "align-items": "center",
-    "justify-content": "center",
-    "min-height": "100vh",
-    padding: "3rem 0.5rem",
-  },
-  pokemonContainer: {
-    "flex-direction": "column",
-    "align-items": "center",
-    "justify-content": "center",
-  },
-  allContainer: {
-    display: "flex",
-    "flex-wrap": "wrap",
-    "align-items": "center",
-    "justify-content": "center",
-  },
-  button: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    "border-radius": "5px",
-    color: "#444",
-    padding: "0.5rem 1.5rem",
-    "min-width": "50%",
-    "margin-top": "1rem",
-  },
-  input: {
-    "box-sizing": "border-box",
-    "font-size": "1rem",
-    padding: "1rem",
-    display: "block",
-    margin: "2rem auto",
-  },
-});
+const Input = styled.input`
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: 1rem;
+  display: block;
+  margin: 2rem auto;
+`;
+const PageContainer = styled.div`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 0.5rem;
+`;
+const PokemonContainer = styled.div`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const AllContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  color: #444;
+  padding: 0.5rem 1.5rem;
+  min-width: 50%;
+  margin-top: 1rem;
+`;
 
 function PokemonList({ setPokemon2, BASE_URL }) {
-  const classes = useStyles();
   const [pokemon, setPokemon] = useState();
   const [limitValue, setLimitValue] = useState(15);
   const [pageValue, setPageValue] = useState(0);
+
   const [searchPokemon, setSearchPokemon] = useState("");
 
   useEffect(() => {
@@ -80,32 +78,38 @@ function PokemonList({ setPokemon2, BASE_URL }) {
     setPageValue(pageValue + 15);
   };
   return (
-    <div>
+    <>
+      <Input
+        type="text"
+        placeholder="Wyszukaj Pokemona"
+        onChange={(e) => {
+          setSearchPokemon(e.target.value);
+        }}
+      />
       {/* {pokemon.filter((pokemon) => {
         if (searchPokemon === "") {
           return pokemon;
         } else if (
           pokemon.name.toLowerCase().includes(searchPokemon.toLowerCase())
         ) {
-          return pokemon;
+          return setSearchPokemon;
         }
       })} */}
-      <div className={classes.pageContainer}>
-        <div className={classes.pokemonContainer}>
-          <div className={classes.allContainer}>
+      <PageContainer>
+        <PokemonContainer>
+          <AllContainer>
             {pokemon?.results
               ?.filter((_, index) => index < 15)
               .map(({ url }, index) => (
                 <PokemonThumb url={url} key={index} />
               ))}
-          </div>
-          <div className={classes.button}>
-            <button onClick={prevPage}>Poprzednia strona</button>
-            <button onClick={nextPage}>Następna strona</button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </AllContainer>
+
+          <Button onClick={prevPage}>Poprzednia strona</Button>
+          <Button onClick={nextPage}>Następna strona</Button>
+        </PokemonContainer>
+      </PageContainer>
+    </>
   );
 }
 export default PokemonList;

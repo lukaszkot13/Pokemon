@@ -11,22 +11,8 @@ const Container = styled.input`
 `;
 
 function Wyszukiwarka() {
-  const [searchPokemon, setSearchPokemon] = useState("");
+  // const [searchPokemon, setSearchPokemon] = useState("");
 
-  useEffect(() => {
-    const 
-  });
-
-  return (
-    <>
-      <Container
-        type="text"
-        placeholder="Wyszukaj Pokemona"
-        onChange={(e) => {
-          setSearchPokemon(e.target.value);
-        }}
-      />
-    </>
-  );
+  return <>sdfsdf</>;
 }
-export default Wyszukiwarka({setSearchPokemon});
+export default Wyszukiwarka();

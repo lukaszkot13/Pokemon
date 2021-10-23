@@ -25,7 +25,9 @@ function Navi() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Pokedex
+            <Link className={classes.Link} to="/">
+              Pokedex
+            </Link>
           </Typography>
           <Link className={classes.Link} to="/ulubione">
             <Button color="inherit">Ulubione</Button>
