@@ -1,15 +1,8 @@
 {
-  "ulubione": [
-    {
-      "id": 2
-    }
-  ],
+  "ulubione": [],
   "arena": [
     {
       "id": 1
-    },
-    {
-      "id": 2
     }
   ]
 }

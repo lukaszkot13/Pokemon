@@ -9,8 +9,8 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const Image = styled.img`
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   &:hover {
     transform: rotate(10deg);
   }
@@ -25,9 +25,8 @@ const Container = styled.div`
   justify-content: center;
   padding: 1.5rem 0;
   margin: 0.3rem;
-  border: 1px solid #efefef;
-  border-radius: 1.2rem;
-  min-width: 304px;
+  border: 10px solid #efefef;
+  border-radius: 5rem;
   text-align: center;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
   background-color: mintcream;
@@ -37,7 +36,7 @@ const Container = styled.div`
 `;
 const Titles = styled.h1`
   text-transform: capitalize;
-  color: yellow;
+  color: blue;
 `;
 const DataName = styled.h3`
   color: green;

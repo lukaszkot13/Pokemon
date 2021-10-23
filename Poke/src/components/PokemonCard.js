@@ -10,6 +10,25 @@ const Page = styled.div`
   display: flex;
   justify-content: center;
 `;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  padding: 1.5rem 0;
+  margin: 0.3rem;
+  border: 5px solid #efefef;
+  border-radius: 3.2rem;
+  min-width: 304px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+  background-color: mintcream;
+`;
+const Image = styled.img`
+  width: 100px;
+  height: 100px;
+`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,25 +38,7 @@ const Skils = styled.div`
   display: flex;
   justify-content: space-around;
 `;
-const Image = styled.img`
-  width: 150px;
-  height: 150px;
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 400px;
-  padding: 1.5rem 0;
-  margin: 0.3rem;
-  border: 1px solid #efefef;
-  border-radius: 1.2rem;
-  min-width: 304px;
-  text-align: center;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
-  background-color: mintcream;
-`;
+
 const Titles = styled.h1`
   text-transform: capitalize;
   color: blue;
@@ -154,11 +155,11 @@ function PokemonCard({ url, DB_URL }) {
     }
   };
 
-  const DeleteArena = ({ pokemonDetails }) => {
-    if (fight)
+  const DeleteArena = ({}) => {
+    if (!fight)
       axios
         .delete(`${DB_URL}/arena/${pokemonDetails.id}`)
-        .then(() => setFight(fight));
+        .then(() => setFight(!setFight));
   };
 
   if (!pokemonDetails) {

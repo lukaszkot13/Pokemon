@@ -10,7 +10,6 @@ const S = {
       display: flex;
       width: auto;
       height: auto;
-      background-color: red;
       justify-content: space-around;
     }
   `,
@@ -25,8 +24,10 @@ const S = {
   Page: styled.div`
     display: flex;
     flex-direction: column;
-    background-color: red;
-    align-items: center;
+    background-image: url("https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
+    background-size: cover;
+    width: auto;
+    height: 1000px;
   `,
   Place: styled.div`
     margin-top: 10%;
