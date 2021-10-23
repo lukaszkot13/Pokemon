@@ -26,7 +26,7 @@ function Ulubione({ DB_URL, BASE_URL }) {
   return (
     <Page>
       {favorite?.map((id) => (
-        <PokemonCard url={`${BASE_URL}${id}`} />
+        <PokemonCard url={`${BASE_URL}${id}`} DB_URL={DB_URL} />
       ))}
     </Page>
   );

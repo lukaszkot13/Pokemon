@@ -52,7 +52,7 @@ function Arena({ DB_URL, BASE_URL }) {
     <S.Page>
       <S.Arena>
         {addToTheArena?.map((id) => (
-          <PokemonCard url={`${BASE_URL}${id}`} />
+          <PokemonCard url={`${BASE_URL}${id}`} DB_URL={DB_URL} />
         ))}
       </S.Arena>
       <S.Przycisk>WALKA</S.Przycisk>
