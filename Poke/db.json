@@ -1,8 +1,12 @@
 {
-  "ulubione": [],
+  "ulubione": [
+    {
+      "id": 2
+    }
+  ],
   "arena": [
     {
-      "id": 1
+      "id": 2
     }
   ]
 }

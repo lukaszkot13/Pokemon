@@ -101,6 +101,7 @@ function PokemonCard({ url, DB_URL }) {
   const [pokemonDetails, setPokemonDetails] = useState();
   const [isFavorite, setIsFavorite] = useState(null);
   const [fight, setFight] = useState(null);
+  const [arenaPokemonow, setArenaPokemonow] = useState(null);
   const [favouritePokemons, setFavouritePokemons] = useState(null);
 
   useEffect(() => {
@@ -145,6 +146,13 @@ function PokemonCard({ url, DB_URL }) {
   }, [DB_URL]);
   console.log("WALKA", fight);
 
+  useEffect(() => {
+    const isArenaPokemons = arenaPokemonow
+      ?.map((item) => item.id)
+      .includes(pokemonDetails.id);
+    setFight(isArenaPokemons);
+  }, [arenaPokemonow]);
+
   const AddArena = () => {
     if (fight === true) {
       axios
@@ -155,11 +163,12 @@ function PokemonCard({ url, DB_URL }) {
     }
   };
 
-  const DeleteArena = ({}) => {
-    if (!fight)
+  const DeleteArena = () => {
+    if (fight === false)
       axios
         .delete(`${DB_URL}/arena/${pokemonDetails.id}`)
-        .then(() => setFight(!setFight));
+        .then((response) => console.log(response.data));
+    setFight(false);
   };
 
   if (!pokemonDetails) {
@@ -203,7 +212,9 @@ function PokemonCard({ url, DB_URL }) {
           <Id>#0{pokemonDetails?.id}</Id>
         </Wrapper>
 
-        <ButtonDel onClick={DeleteArena}>Usuń z Areny</ButtonDel>
+        <ButtonDel fight={fight} onClick={DeleteArena}>
+          Usuń z Areny
+        </ButtonDel>
         <Button onClick={() => history.push(`/`)}>Strona Główna</Button>
       </Container>
     </Page>
