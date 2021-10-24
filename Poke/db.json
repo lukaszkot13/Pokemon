@@ -2,29 +2,17 @@
   "ulubione": [
     {
       "id": 25
-    },
-    {
-      "id": 1
     }
   ],
   "arena": [
     {
-      "id": 1,
-      "name": "bulbasaur",
-      "height": 7,
-      "base_experience": 64,
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "weight": 69,
-      "ability": "overgrow"
-    },
-    {
-      "id": 2,
-      "name": "ivysaur",
-      "height": 10,
-      "base_experience": 142,
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
-      "weight": 130,
-      "ability": "overgrow"
+      "id": 25,
+      "name": "pikachu",
+      "height": 4,
+      "base_experience": 112,
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
+      "weight": 60,
+      "ability": "static"
     }
   ]
 }

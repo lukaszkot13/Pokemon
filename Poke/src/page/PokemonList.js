@@ -110,8 +110,8 @@ function PokemonList({ setPokemon2, BASE_URL }) {
                   return pokemon;
                 }
               })
-              .map(({ url }, index, id) => (
-                <PokemonThumb url={url} key={index} id={id} />
+              .map(({ url }, index, id, name) => (
+                <PokemonThumb url={url} key={index} id={id} name={name} />
               ))}
           </AllContainer>
 

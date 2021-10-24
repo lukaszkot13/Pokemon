@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -25,7 +24,6 @@ const S = {
   Page: styled.div`
     display: flex;
     flex-direction: column;
-    background-image: url("https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
     background-size: cover;
     width: auto;
     height: 1000px;
@@ -37,36 +35,16 @@ const S = {
     background-color: black;
   `,
   First: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 300px;
-    padding: 1.5rem 0;
-    margin: 0.3rem;
-    border: 5px solid #efefef;
-    border-radius: 3.2rem;
-    min-width: 304px;
-    text-align: center;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
-    background-color: mintcream;
-  `,
-  Second: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     width: 400px;
     height: 300px;
-    padding: 1.5rem 0;
-    margin: 0.3rem;
-    border: 5px solid #efefef;
-    border-radius: 3.2rem;
-    min-width: 304px;
-    text-align: center;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
-    background-color: mintcream;
+    border-radius: 10px;
+    background-color: red;
+  `,
+  Second: styled.div`
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: blue;
   `,
   Forms: styled.h3`
     font-style: oblique;
@@ -77,11 +55,15 @@ const S = {
   `,
 };
 
-function Arena({ DB_URL, BASE_URL }) {
+function Arena() {
   const [addToTheArena, setSddToTheArena] = useState(null);
-  const [first, setFirst] = useState();
-  const [second, setSecond] = useState();
+  const DB_URL = `http://localhost:3000`;
+  const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
   const [winner, setWinner] = useState("");
+
+  useEffect(() => {
+    axios.get(`${DB_URL}`);
+  });
 
   useEffect(() => {
     axios.get(`${DB_URL}/arena/`).then((res) => setSddToTheArena(res.data));
@@ -91,47 +73,32 @@ function Arena({ DB_URL, BASE_URL }) {
   console.log("Walka", addToTheArena);
   return (
     <S.Page>
+      <S.First>
+        <S.Title> {addToTheArena[0].name}</S.Title>
+        <S.Forms>
+          height:
+          {addToTheArena[0].height}
+        </S.Forms>
+        <S.Forms>
+          base Experience:
+          {addToTheArena[0].base_experience}
+        </S.Forms>
+        <S.Forms>
+          weight:
+          {addToTheArena[0].weight}
+        </S.Forms>
+        <S.Forms>
+          ability
+          {addToTheArena[0].ability}
+        </S.Forms>
+      </S.First>
+      <S.Second>name:{addToTheArena[1]?.name}</S.Second>
       <S.Arena>
-        <S.First>
-          <S.Title> {addToTheArena[0].name}</S.Title>
-          <S.Forms>
-            height:
-            {addToTheArena[0].height}
-          </S.Forms>
-          <S.Forms>
-            base Experience:
-            {addToTheArena[0].base_experience}
-          </S.Forms>
-          <S.Forms>
-            weight:
-            {addToTheArena[0].weight}
-          </S.Forms>
-          <S.Forms>
-            ability
-            {addToTheArena[0].ability}
-          </S.Forms>
-        </S.First>
-        <S.Przycisk>WALKA</S.Przycisk>
-        <S.Second>
-          <S.Title> {addToTheArena[1].name}</S.Title>
-          <S.Forms>
-            height:
-            {addToTheArena[1].height}
-          </S.Forms>
-          <S.Forms>
-            base Experience:
-            {addToTheArena[1].base_experience}
-          </S.Forms>
-          <S.Forms>
-            weight:
-            {addToTheArena[1].weight}
-          </S.Forms>
-          <S.Forms>
-            ability
-            {addToTheArena[1].ability}
-          </S.Forms>
-        </S.Second>
+        {/* {addToTheArena?.map((id) => (
+          <PokemonCard url={`${BASE_URL}${id}`} DB_URL={DB_URL} />
+        ))} */}
       </S.Arena>
+      <S.Przycisk>WALKA</S.Przycisk>
     </S.Page>
   );
 }
