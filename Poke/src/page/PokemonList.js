@@ -4,11 +4,25 @@ import styled from "styled-components";
 
 import PokemonThumb from "../components/PokemonThumb";
 
+const Navi = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 0.5rem 1.5rem;
+  min-width: 25%;
+  margin-top: 1rem;
+`;
 const Input = styled.input`
   box-sizing: border-box;
   font-size: 1rem;
   padding: 1rem;
-  display: block;
   margin: 2rem auto;
 `;
 const PageContainer = styled.div`
@@ -28,16 +42,6 @@ const AllContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-`;
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 5px;
-  color: #444;
-  padding: 0.5rem 1.5rem;
-  min-width: 50%;
-  margin-top: 1rem;
 `;
 
 function PokemonList({ setPokemon2, BASE_URL }) {
@@ -79,13 +83,18 @@ function PokemonList({ setPokemon2, BASE_URL }) {
   };
   return (
     <>
-      <Input
-        type="text"
-        placeholder="Wyszukaj Pokemona"
-        onChange={(e) => {
-          setSearchPokemon(e.target.value);
-        }}
-      />
+      <Navi>
+        <Button onClick={prevPage}>Poprzednia strona</Button>
+        <Input
+          type="text"
+          placeholder="Wyszukaj Pokemona"
+          onChange={(e) => {
+            setSearchPokemon(e.target.value);
+          }}
+        />
+        <Button onClick={nextPage}>Następna strona</Button>
+      </Navi>
+
       <PageContainer>
         <PokemonContainer>
           <AllContainer>
@@ -101,8 +110,8 @@ function PokemonList({ setPokemon2, BASE_URL }) {
                   return pokemon;
                 }
               })
-              .map(({ url }, index) => (
-                <PokemonThumb url={url} key={index} />
+              .map(({ url }, index, id) => (
+                <PokemonThumb url={url} key={index} id={id} />
               ))}
           </AllContainer>
 

@@ -150,6 +150,12 @@ function PokemonCard({ url, DB_URL }) {
       axios
         .post(`${DB_URL}/arena`, {
           id: pokemonDetails.id,
+          name: pokemonDetails.name,
+          height: pokemonDetails.height,
+          base_experience: pokemonDetails?.base_experience,
+          image: pokemonDetails?.sprites?.other.dream_world.front_default,
+          weight: pokemonDetails?.weight,
+          ability: pokemonDetails?.abilities?.[0].ability.name,
         })
         .then(() => setFight(fight === false));
     }
