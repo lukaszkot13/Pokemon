@@ -31,7 +31,7 @@ const S = {
   `,
   Place: styled.div`
     margin-top: 10%;
-    weight: 100px;
+
     height: 100px;
     background-color: black;
   `,
