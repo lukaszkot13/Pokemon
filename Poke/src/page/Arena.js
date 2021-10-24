@@ -50,7 +50,9 @@ const S = {
     font-style: oblique;
   `,
   Title: styled.h1`
-    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
     color: blueviolet;
   `,
 };
@@ -66,15 +68,18 @@ function Arena() {
   });
 
   useEffect(() => {
-    axios.get(`${DB_URL}/arena/`).then((res) => setSddToTheArena(res.data));
+    axios
+      .get(`${DB_URL}/arena/`)
+      .then((res) => setSddToTheArena(res.data.map(({ id }) => +id)));
   }, []);
 
   if (!addToTheArena) return null;
   console.log("Walka", addToTheArena);
   return (
     <S.Page>
-      <S.First>
-        <S.Title> {addToTheArena[0].name}</S.Title>
+      {/* <S.First>
+        <PokemonCard url={`${BASE_URL}`} DB_URL={DB_URL} /> */}
+      {/* <S.Title> {addToTheArena[0].name}</S.Title>
         <S.Forms>
           height:
           {addToTheArena[0].height}
@@ -90,13 +95,15 @@ function Arena() {
         <S.Forms>
           ability
           {addToTheArena[0].ability}
-        </S.Forms>
-      </S.First>
-      <S.Second>name:{addToTheArena[1]?.name}</S.Second>
+        </S.Forms> */}
+      {/* </S.First> */}
+      {/* <S.Second>
+        <PokemonCard url={`${BASE_URL}`} DB_URL={DB_URL} />
+      </S.Second> */}
       <S.Arena>
-        {/* {addToTheArena?.map((id) => (
+        {addToTheArena?.map((id) => (
           <PokemonCard url={`${BASE_URL}${id}`} DB_URL={DB_URL} />
-        ))} */}
+        ))}
       </S.Arena>
       <S.Przycisk>WALKA</S.Przycisk>
     </S.Page>
