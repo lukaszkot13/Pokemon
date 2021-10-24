@@ -101,7 +101,6 @@ function PokemonCard({ url, DB_URL }) {
   const [pokemonDetails, setPokemonDetails] = useState();
   const [isFavorite, setIsFavorite] = useState(null);
   const [fight, setFight] = useState(null);
-  const [arenaPokemonow, setArenaPokemonow] = useState(null);
   const [favouritePokemons, setFavouritePokemons] = useState(null);
 
   useEffect(() => {
@@ -145,13 +144,6 @@ function PokemonCard({ url, DB_URL }) {
     });
   }, [DB_URL]);
   console.log("WALKA", fight);
-
-  useEffect(() => {
-    const isArenaPokemons = arenaPokemonow
-      ?.map((item) => item.id)
-      .includes(pokemonDetails.id);
-    setFight(isArenaPokemons);
-  }, [arenaPokemonow]);
 
   const AddArena = () => {
     if (fight === true) {

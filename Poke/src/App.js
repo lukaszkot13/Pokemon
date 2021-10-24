@@ -19,7 +19,11 @@ function App() {
       <Router>
         <Navi />
         <Route path="/" exact>
-          <PokemonList setPokemon2={setPokemon2} BASE_URL={BASE_URL} />
+          <PokemonList
+            pokemon2={pokemon2}
+            setPokemon2={setPokemon2}
+            BASE_URL={BASE_URL}
+          />
         </Route>
         {pokemon2?.results?.map((item) => (
           <Route path={`/${item.name}`}>

@@ -86,20 +86,21 @@ function PokemonList({ setPokemon2, BASE_URL }) {
           setSearchPokemon(e.target.value);
         }}
       />
-      {/* {pokemon.filter((pokemon) => {
-        if (searchPokemon === "") {
-          return pokemon;
-        } else if (
-          pokemon.name.toLowerCase().includes(searchPokemon.toLowerCase())
-        ) {
-          return setSearchPokemon;
-        }
-      })} */}
       <PageContainer>
         <PokemonContainer>
           <AllContainer>
             {pokemon?.results
-              ?.filter((_, index) => index < 15)
+              ?.filter((pokemon) => {
+                if (searchPokemon === "") {
+                  return pokemon;
+                } else if (
+                  pokemon.name
+                    .toLowerCase()
+                    .includes(searchPokemon.toLowerCase())
+                ) {
+                  return pokemon;
+                }
+              })
               .map(({ url }, index) => (
                 <PokemonThumb url={url} key={index} />
               ))}
