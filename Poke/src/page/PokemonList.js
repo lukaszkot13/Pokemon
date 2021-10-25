@@ -114,9 +114,6 @@ function PokemonList({ setPokemon2, BASE_URL }) {
                 <PokemonThumb url={url} key={index} id={id} name={name} />
               ))}
           </AllContainer>
-
-          <Button onClick={prevPage}>Poprzednia strona</Button>
-          <Button onClick={nextPage}>Następna strona</Button>
         </PokemonContainer>
       </PageContainer>
     </>

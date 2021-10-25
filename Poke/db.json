@@ -9,22 +9,22 @@
   ],
   "arena": [
     {
-      "id": 1,
-      "name": "bulbasaur",
-      "height": 7,
-      "base_experience": 64,
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-      "weight": 69,
-      "ability": "overgrow"
+      "id": 9,
+      "name": "blastoise",
+      "height": 16,
+      "base_experience": 239,
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/9.svg",
+      "weight": 855,
+      "ability": "torrent"
     },
     {
-      "id": 25,
-      "name": "pikachu",
-      "height": 4,
-      "base_experience": 112,
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg",
-      "weight": 60,
-      "ability": "static"
+      "id": 6,
+      "name": "charizard",
+      "height": 17,
+      "base_experience": 240,
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg",
+      "weight": 905,
+      "ability": "blaze"
     }
   ]
 }

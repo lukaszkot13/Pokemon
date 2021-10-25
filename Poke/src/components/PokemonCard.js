@@ -108,7 +108,7 @@ function PokemonCard({ url, DB_URL }) {
       setPokemonDetails(response.data);
     });
   }, []);
-  // console.log("PokemonCard", pokemonDetails);
+  console.log("PokemonCard", pokemonDetails);
 
   useEffect(() => {
     axios.get(`${DB_URL}/ulubione`).then((response) => {

@@ -1,17 +1,26 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
+import ArenaCard from "../components/ArenaCard";
 import PokemonCard from "../components/PokemonCard";
-
 const S = {
   Arena: styled.div`
     && {
       display: flex;
+      flex-direction: column;
       width: auto;
       height: auto;
-      justify-content: space-around;
+      size: 50px;
     }
+  `,
+  Napis: styled.h1`
+    color: red;
+  `,
+  Wynik: styled.div`
+    display: flex;
+    justify-content: center;
   `,
   Przycisk: styled.button`
     display: flex;
@@ -34,18 +43,8 @@ const S = {
     height: 100px;
     background-color: black;
   `,
-  First: styled.div`
-    width: 400px;
-    height: 300px;
-    border-radius: 10px;
-    background-color: red;
-  `,
-  Second: styled.div`
-    width: 400px;
-    height: 300px;
-    border-radius: 10px;
-    background-color: blue;
-  `,
+  First: styled.div``,
+  Second: styled.div``,
   Forms: styled.h3`
     font-style: oblique;
   `,
@@ -55,57 +54,107 @@ const S = {
     font-size: 30px;
     color: blueviolet;
   `,
+  Fight: styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+  `,
 };
 
 function Arena() {
-  const [addToTheArena, setSddToTheArena] = useState(null);
   const DB_URL = `http://localhost:3000`;
-  const BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState();
+  const [pokemonArena, setPokemonArena] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     axios.get(`${DB_URL}`);
   });
 
   useEffect(() => {
-    axios
-      .get(`${DB_URL}/arena/`)
-      .then((res) => setSddToTheArena(res.data.map(({ id }) => +id)));
+    axios.get(`${DB_URL}/arena/`).then((res) => setPokemonArena(res.data));
   }, []);
+  console.log("Walka", pokemonArena);
 
-  if (!addToTheArena) return null;
-  console.log("Walka", addToTheArena);
+  const Home = () => {
+    history.push(`/`);
+  };
+
+  const walka = () => {
+    if (pokemonArena.length === 2) {
+      if (
+        pokemonArena[0].base_experience * pokemonArena[0].weight >
+        pokemonArena[1].base_experience * pokemonArena[1].weight
+      ) {
+        return setWinner(
+          <ArenaCard
+            image={pokemonArena[0]?.image}
+            name={pokemonArena[0]?.name}
+            height={pokemonArena[0]?.height}
+            base_experience={pokemonArena[0]?.base_experience}
+            weight={pokemonArena[0]?.weight}
+            ability={pokemonArena[0]?.ability}
+            id={pokemonArena[0]?.id}
+          />
+        );
+      } else {
+        setWinner(
+          <ArenaCard
+            image={pokemonArena[1]?.image}
+            name={pokemonArena[1]?.name}
+            height={pokemonArena[1]?.height}
+            base_experience={pokemonArena[1]?.base_experience}
+            weight={pokemonArena[1]?.weight}
+            ability={pokemonArena[1]?.ability}
+            id={pokemonArena[1]?.id}
+          />
+        );
+      }
+    }
+  };
+
+  // const DeleteArena = () => {
+  //   axios
+  //     .delete(`${DB_URL}/arena/${pokemonArena}`)
+  //     .then((response) => console.log(response.data));
+  // };
+
+  if (!pokemonArena) return null;
+
   return (
     <S.Page>
-      {/* <S.First>
-        <PokemonCard url={`${BASE_URL}`} DB_URL={DB_URL} /> */}
-      {/* <S.Title> {addToTheArena[0].name}</S.Title>
-        <S.Forms>
-          height:
-          {addToTheArena[0].height}
-        </S.Forms>
-        <S.Forms>
-          base Experience:
-          {addToTheArena[0].base_experience}
-        </S.Forms>
-        <S.Forms>
-          weight:
-          {addToTheArena[0].weight}
-        </S.Forms>
-        <S.Forms>
-          ability
-          {addToTheArena[0].ability}
-        </S.Forms> */}
-      {/* </S.First> */}
-      {/* <S.Second>
-        <PokemonCard url={`${BASE_URL}`} DB_URL={DB_URL} />
-      </S.Second> */}
-      <S.Arena>
-        {addToTheArena?.map((id) => (
-          <PokemonCard url={`${BASE_URL}${id}`} DB_URL={DB_URL} />
-        ))}
-      </S.Arena>
-      <S.Przycisk>WALKA</S.Przycisk>
+      <button onClick={Home}>Strona Główna</button>
+      <S.Fight>
+        <S.First>
+          {/* <button onClick={DeleteArena}></button> */}
+          <ArenaCard
+            image={pokemonArena[0]?.image}
+            name={pokemonArena[0]?.name}
+            height={pokemonArena[0]?.height}
+            base_experience={pokemonArena[0]?.base_experience}
+            weight={pokemonArena[0]?.weight}
+            ability={pokemonArena[0]?.ability}
+            id={pokemonArena[0]?.id}
+          />
+        </S.First>
+        <S.Przycisk onClick={walka}>WALKA</S.Przycisk>
+        <S.Second>
+          <ArenaCard
+            image={pokemonArena[1]?.image}
+            name={pokemonArena[1]?.name}
+            height={pokemonArena[1]?.height}
+            base_experience={pokemonArena[1]?.base_experience}
+            weight={pokemonArena[1]?.weight}
+            ability={pokemonArena[1]?.ability}
+            id={pokemonArena[1]?.id}
+          />
+        </S.Second>
+      </S.Fight>
+      <S.Wynik>
+        <S.Arena>
+          <S.Napis>Wygrał :</S.Napis> {winner}
+        </S.Arena>
+      </S.Wynik>
     </S.Page>
   );
 }
