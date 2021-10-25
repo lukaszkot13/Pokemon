@@ -4,16 +4,14 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import ArenaCard from "../components/ArenaCard";
-import PokemonCard from "../components/PokemonCard";
+
 const S = {
   Arena: styled.div`
-    && {
-      display: flex;
-      flex-direction: column;
-      width: auto;
-      height: auto;
-      size: 50px;
-    }
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    size: 50px;
   `,
   Napis: styled.h1`
     color: red;
@@ -29,13 +27,17 @@ const S = {
     border-radius: 10%;
     align-items: center;
     justify-content: center;
+    &:hover {
+      transform: scale(1.9);
+    }
   `,
   Page: styled.div`
     display: flex;
     flex-direction: column;
     background-size: cover;
+    background-image: url("https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
     width: auto;
-    height: 1000px;
+    height: auto;
   `,
   Place: styled.div`
     margin-top: 10%;
@@ -58,6 +60,32 @@ const S = {
     display: flex;
     justify-content: space-around;
     margin-top: 5%;
+  `,
+  Title: styled.h1`
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    color: yellow;
+  `,
+  Wroc: styled.div`
+    display: flex;
+    justify-content: center;
+  `,
+  Powrot: styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+    width: 100px;
+    height: 50px;
+    border-radius: 10%;
+    &:hover {
+      transform: scale(1.9);
+    }
+  `,
+  NapisWygrana: styled.div`
+    display: flex;
+    justify-content: center;
   `,
 };
 
@@ -123,7 +151,10 @@ function Arena() {
 
   return (
     <S.Page>
-      <button onClick={Home}>Strona Główna</button>
+      <S.Wroc>
+        <S.Powrot onClick={Home}>Strona Główna</S.Powrot>
+      </S.Wroc>
+      <S.Title>Arena Pokemonów</S.Title>
       <S.Fight>
         <S.First>
           {/* <button onClick={DeleteArena}></button> */}
@@ -152,7 +183,10 @@ function Arena() {
       </S.Fight>
       <S.Wynik>
         <S.Arena>
-          <S.Napis>Wygrał :</S.Napis> {winner}
+          <S.NapisWygrana>
+            <S.Napis>Wygrał :</S.Napis>
+          </S.NapisWygrana>
+          {winner}
         </S.Arena>
       </S.Wynik>
     </S.Page>
